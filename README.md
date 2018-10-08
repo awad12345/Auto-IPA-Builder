@@ -1,2 +1,3 @@
 # Auto IPA Builder
-Requirements:\nMacOS
+Requirements:
+MacOS
