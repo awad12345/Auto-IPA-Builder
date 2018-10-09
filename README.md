@@ -2,4 +2,4 @@
 Requirements:<br>
 - macOS Sierra or higher<br>
 - Xcode<br>
-- Optool (Must be in /usr/local/bin)
+- [Optool](https://github.com/alexzielenski/optool/releases) (Must be in /usr/local/bin)(.
