@@ -1,6 +1,6 @@
 # Auto IPA Builder
 
-Download: [Releases](https://github.com/SarahH12099/Auto-IPA-Builder/releases)
+Download: [Releases](https://github.com/SarahH12099/Auto-IPA-Builder/releases)<br>
 Latest Release: v1.0.9.4
 <br><br>
 The Auto IPA Builder script must be in /usr/local/bin for it to work (sudo cp Desktop/build /usr/local/bin)
