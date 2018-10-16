@@ -50,25 +50,20 @@ function cercube4 {
 	cd ~/Desktop/Tweaks
 	mkdir -p Build
 	cd Build
-	echo "Downloading Tweak"
-	curl -O "https://files.hollr2099.net/tweaksold/cercube4.zip"
 	echo "Extracting IPA"
 	unzip ../YouTube.ipa -d YouTube > /dev/null
+	cd YouTube/Payload/YouTube.app; rm -r -f __MACOSX
+	echo "Downloading Tweak"
+	curl -O "https://files.hollr2099.net/tweaks/cercube4.zip"
 	echo "Extracting Tweak"
-	unzip cercube4.zip -d Cercube4 > /dev/null
-	echo "Moving Tweak"
-	cd Cercube4
-	rm -r -f __MACOSX
-	cp -r * ../YouTube/Payload/YouTube.app
-	cd ../
+	unzip cercube4.zip > /dev/null
+	rm -r -f cercube4.zip; rm -r -f __MACOSX
 	echo "Injecting Tweak"
-	optool install -c load -p "@executable_path/Cercube.dylib" -t "YouTube/Payload/YouTube.app/YouTube" > /dev/null
-	cd YouTube; rm -r -f __MACOSX
+	optool install -c load -p "@executable_path/Cercube.dylib" -t "YouTube" > /dev/null
 	echo "Packaging IPA"
+	cd ../../; rm -r -f __MACOSX
 	zip -r -X ../"Cercube 4 For YouTube.ipa" * > /dev/null
-	cd ../
-	echo "Removing Folders"
-	rm -r -f cercube4.zip Cercube4 YouTube
+	cd ../; rm -r -f YouTube
 	echo "Done Cercube 4"
 }
 
@@ -77,33 +72,24 @@ function cercube4pp {
 	cd ~/Desktop/Tweaks
 	mkdir -p Build
 	cd Build
-	echo "Downloading Tweak"
-	curl -O "https://files.hollr2099.net/tweaksold/cercube4.zip"
-	curl -O "https://files.hollr2099.net/tweaksold/cercube4pp.zip"
 	echo "Extracting IPA"
 	unzip ../YouTube.ipa -d YouTube > /dev/null
+	cd YouTube/Payload/YouTube.app; rm -r -f __MACOSX
+	echo "Downloading Tweak"
+	curl -O "https://files.hollr2099.net/tweaks/cercube4.zip"
+	curl -O "https://files.hollr2099.net/tweaks/cercube4pp.zip"
 	echo "Extracting Tweak"
-	unzip cercube4.zip -d Cercube4 > /dev/null
-	unzip cercube4pp.zip -d Cercube4PP > /dev/null
-	echo "Moving Tweak"
-	cd Cercube4
-	rm -r -f __MACOSX
-	cp -r * ../YouTube/Payload/YouTube.app
-	cd ../
-	cd Cercube4PP
-	rm -r -f __MACOSX
-	cp -r * ../YouTube/Payload/YouTube.app
-	cd ../
+	unzip cercube4.zip > /dev/null
+	unzip cercube4pp.zip > /dev/null
+	rm -r -f cercube4.zip; rm -r -f __MACOSX
+	rm -r -f cercube4PP.zip; rm -r -f __MACOSX
 	echo "Injecting Tweak"
-	optool install -c load -p "@executable_path/Cercube.dylib" -t "YouTube/Payload/YouTube.app/YouTube" > /dev/null
-	optool install -c load -p "@executable_path/CercubeCrack.dylib" -t "YouTube/Payload/YouTube.app/YouTube" > /dev/null
-	cd YouTube; rm -r -f __MACOSX
+	optool install -c load -p "@executable_path/Cercube.dylib" -t "YouTube" > /dev/null
+	optool install -c load -p "@executable_path/CercubeCrack.dylib" -t "YouTube" > /dev/null
 	echo "Packaging IPA"
+	cd ../../; rm -r -f __MACOSX
 	zip -r -X ../"Cercube 4 For YouTube++.ipa" * > /dev/null
-	cd ../
-	echo "Removing Folders"
-	rm -r -f cercube4.zip cercube4pp.zip Cercube4 Cercube4PP YouTube
+	cd ../; rm -r -f YouTube
 	echo "Done Cercube 4++"
 }
-
 "$1" "${@:2}"
