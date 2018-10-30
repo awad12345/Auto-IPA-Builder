@@ -22,27 +22,27 @@ USAGE
 
 [[ $# = 0 ]] && usage
 
-commands=(deblist ipalist optionslist cercube4 cercube4pp)
+commands=(deblist ipalist optionslist cercube4 cercube4pp spotifypp)
 [[ ! " ${commands[@]} " =~ " $1 " ]] && usage
 
 function deblist {
 	echo "Debs must be in a folder called Tweaks on your Desktop"
 	echo "Debs:
-      None.deb
-      None.deb"
+      Currently not avaiable"
 }
 
 function ipalist {
 	echo "IPAs must be in a folder called Tweaks on your Desktop"
 	echo "IPAs:
-      YouTube.ipa
+      Spotify.ipa
       YouTube.ipa"
 }
 
 function optionslist {
 	echo "Options:
       cercube4 - Builds Cercube 4
-      cercube4pp - Builds Cercube 4++"
+      cercube4pp - Builds Cercube 4++
+      spotifypp - Builds Spotify++"
 }
 
 function cercube4 {
@@ -52,16 +52,16 @@ function cercube4 {
 	cd Build
 	echo "Extracting IPA"
 	unzip ../YouTube.ipa -d YouTube > /dev/null
-	cd YouTube/Payload/YouTube.app; rm -r -f __MACOSX
+	cd YouTube/Payload/YouTube.app;
 	echo "Downloading Tweak"
 	curl -O "https://raw.githubusercontent.com/SarahH12099/Auto-IPA-Builder-Tweaks/master/cercube4.zip"
 	echo "Extracting Tweak"
 	unzip cercube4.zip > /dev/null
-	rm -r -f cercube4.zip; rm -r -f __MACOSX
+	rm -r -f cercube4.zip
 	echo "Injecting Tweak"
 	optool install -c load -p "@executable_path/Cercube.dylib" -t "YouTube" > /dev/null
 	echo "Packaging IPA"
-	cd ../../; rm -r -f __MACOSX
+	cd ../../
 	zip -r -X ../"Cercube 4 For YouTube.ipa" * > /dev/null
 	cd ../; rm -r -f YouTube
 	echo "Done Cercube 4"
@@ -74,22 +74,45 @@ function cercube4pp {
 	cd Build
 	echo "Extracting IPA"
 	unzip ../YouTube.ipa -d YouTube > /dev/null
-	cd YouTube/Payload/YouTube.app; rm -r -f __MACOSX
+	cd YouTube/Payload/YouTube.app;
 	echo "Downloading Tweak"
 	curl -O "https://raw.githubusercontent.com/SarahH12099/Auto-IPA-Builder-Tweaks/master/cercube4.zip"
 	curl -O "https://raw.githubusercontent.com/SarahH12099/Auto-IPA-Builder-Tweaks/master/cercube4pp.zip"
 	echo "Extracting Tweak"
 	unzip cercube4.zip > /dev/null
 	unzip cercube4pp.zip > /dev/null
-	rm -r -f cercube4.zip; rm -r -f __MACOSX
-	rm -r -f cercube4PP.zip; rm -r -f __MACOSX
+	rm -r -f cercube4.zip
+	rm -r -f cercube4pp.zip
 	echo "Injecting Tweak"
 	optool install -c load -p "@executable_path/Cercube.dylib" -t "YouTube" > /dev/null
 	optool install -c load -p "@executable_path/CercubeCrack.dylib" -t "YouTube" > /dev/null
 	echo "Packaging IPA"
-	cd ../../; rm -r -f __MACOSX
+	cd ../../
 	zip -r -X ../"Cercube 4 For YouTube++.ipa" * > /dev/null
 	cd ../; rm -r -f YouTube
 	echo "Done Cercube 4++"
 }
+
+function spotifypp {
+	echo "Building Spotify++"
+	cd ~/Desktop/Tweaks
+	mkdir -p Build
+	cd Build
+	echo "Extracting IPA"
+	unzip ../Spotify.ipa -d Spotify > /dev/null
+	cd Spotify/Payload/Spotify.app;
+	echo "Downloading Tweak"
+	curl -O "https://raw.githubusercontent.com/SarahH12099/Auto-IPA-Builder-Tweaks/master/spotifypp.zip"
+	echo "Extracting Tweak"
+	unzip spotifypp.zip > /dev/null
+	rm -r -f spotifypp.zip
+	echo "Injecting Tweak"
+	install_name_tool -change /usr/lib/libSystem.B.dylib @executable_path/Sys.dylib Spotify > /dev/null
+	echo "Packaging IPA"
+	cd ../../
+	zip -r -X ../"Spotify++.ipa" * > /dev/null
+	cd ../; rm -r -f Spotify
+	echo "Done Spotify++"
+}
+
 "$1" "${@:2}"
