@@ -54,7 +54,7 @@ function cercube4 {
 	unzip ../YouTube.ipa -d YouTube > /dev/null
 	cd YouTube/Payload/YouTube.app; rm -r -f __MACOSX
 	echo "Downloading Tweak"
-	curl -O "https://files.hollr2099.net/tweaks/cercube4.zip"
+	curl -O "https://raw.githubusercontent.com/SarahH12099/Auto-IPA-Builder-Tweaks/master/cercube4.zip"
 	echo "Extracting Tweak"
 	unzip cercube4.zip > /dev/null
 	rm -r -f cercube4.zip; rm -r -f __MACOSX
@@ -76,8 +76,8 @@ function cercube4pp {
 	unzip ../YouTube.ipa -d YouTube > /dev/null
 	cd YouTube/Payload/YouTube.app; rm -r -f __MACOSX
 	echo "Downloading Tweak"
-	curl -O "https://files.hollr2099.net/tweaks/cercube4.zip"
-	curl -O "https://files.hollr2099.net/tweaks/cercube4pp.zip"
+	curl -O "https://raw.githubusercontent.com/SarahH12099/Auto-IPA-Builder-Tweaks/master/cercube4.zip"
+	curl -O "https://raw.githubusercontent.com/SarahH12099/Auto-IPA-Builder-Tweaks/master/cercube4pp.zip"
 	echo "Extracting Tweak"
 	unzip cercube4.zip > /dev/null
 	unzip cercube4pp.zip > /dev/null
