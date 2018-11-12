@@ -22,7 +22,7 @@ USAGE
 
 [[ $# = 0 ]] && usage
 
-commands=(deblist ipalist optionslist cercube4 cercube4pp spotifypp)
+commands=(deblist ipalist optionslist cercube4 cercube4pp plexpp spotifypp)
 [[ ! " ${commands[@]} " =~ " $1 " ]] && usage
 
 function deblist {
@@ -34,6 +34,7 @@ function deblist {
 function ipalist {
 	echo "IPAs must be in a folder called Tweaks on your Desktop"
 	echo "IPAs:
+      Plex.ipa
       Spotify.ipa
       YouTube.ipa"
 }
@@ -52,7 +53,7 @@ function cercube4 {
 	cd Build
 	echo "Extracting IPA"
 	unzip ../YouTube.ipa -d YouTube > /dev/null
-	cd YouTube/Payload/YouTube.app;
+	cd "YouTube/Payload/YouTube.app";
 	echo "Downloading Tweak"
 	curl -O "https://raw.githubusercontent.com/SarahH12099/Auto-IPA-Builder-Tweaks/master/cercube4.zip"
 	echo "Extracting Tweak"
@@ -74,7 +75,7 @@ function cercube4pp {
 	cd Build
 	echo "Extracting IPA"
 	unzip ../YouTube.ipa -d YouTube > /dev/null
-	cd YouTube/Payload/YouTube.app;
+	cd "YouTube/Payload/YouTube.app";
 	echo "Downloading Tweak"
 	curl -O "https://raw.githubusercontent.com/SarahH12099/Auto-IPA-Builder-Tweaks/master/cercube4.zip"
 	curl -O "https://raw.githubusercontent.com/SarahH12099/Auto-IPA-Builder-Tweaks/master/cercube4pp.zip"
@@ -93,6 +94,28 @@ function cercube4pp {
 	echo "Done Cercube 4++"
 }
 
+function plexpp {
+	echo "Building Plex++"
+	cd ~/Desktop/Tweaks
+	mkdir -p Build
+	cd Build
+	echo "Extracting IPA"
+	unzip ../Plex.ipa -d Plex > /dev/null
+	cd "Plex/Payload/PlexMobile.app";
+	echo "Downloading Tweak"
+	curl -O "https://raw.githubusercontent.com/SarahH12099/Auto-IPA-Builder-Tweaks/master/plexpp.zip"
+	echo "Extracting Tweak"
+	unzip plexpp.zip > /dev/null
+	rm -r -f plexpp.zip
+	echo "Injecting Tweak"
+	optool install -c load -p "@executable_path/PlexCrack.dylib" -t "PlexMobile" > /dev/null
+	echo "Packaging IPA"
+	cd ../../
+	zip -r -X ../"Plex++.ipa" * > /dev/null
+	cd ../; rm -r -f Plex
+	echo "Done Plex++"
+}
+
 function spotifypp {
 	echo "Building Spotify++"
 	cd ~/Desktop/Tweaks
@@ -100,7 +123,7 @@ function spotifypp {
 	cd Build
 	echo "Extracting IPA"
 	unzip ../Spotify.ipa -d Spotify > /dev/null
-	cd Spotify/Payload/Spotify.app;
+	cd "Spotify/Payload/Spotify.app";
 	echo "Downloading Tweak"
 	curl -O "https://raw.githubusercontent.com/SarahH12099/Auto-IPA-Builder-Tweaks/master/spotifypp.zip"
 	echo "Extracting Tweak"
