@@ -22,7 +22,7 @@ USAGE
 
 [[ $# = 0 ]] && usage
 
-commands=(deblist ipalist optionslist cercube4 cercube4pp plexpp spotifypp)
+commands=(deblist ipalist optionslist cercube4 cercube4pp plexpp spotifypp twitchpp)
 [[ ! " ${commands[@]} " =~ " $1 " ]] && usage
 
 function deblist {
@@ -36,6 +36,7 @@ function ipalist {
 	echo "IPAs:
       Plex.ipa
       Spotify.ipa
+      Twitch.ipa
       YouTube.ipa"
 }
 
@@ -43,7 +44,9 @@ function optionslist {
 	echo "Options:
       cercube4 - Builds Cercube 4
       cercube4pp - Builds Cercube 4++
-      spotifypp - Builds Spotify++"
+      plexpp - Builds Plex++
+      spotifypp - Builds Spotify++
+      twitchpp - Builds Twitch++"
 }
 
 function cercube4 {
@@ -130,12 +133,35 @@ function spotifypp {
 	unzip spotifypp.zip > /dev/null
 	rm -r -f spotifypp.zip
 	echo "Injecting Tweak"
-	install_name_tool -change /usr/lib/libSystem.B.dylib @executable_path/Sys.dylib Spotify > /dev/null
+	install_name_tool -change /usr/lib/libSystem.B.dylib @executable_path/Sys.dylib "Spotify" > /dev/null
 	echo "Packaging IPA"
 	cd ../../
 	zip -r -X ../"Spotify++.ipa" * > /dev/null
 	cd ../; rm -r -f Spotify
 	echo "Done Spotify++"
 }
+
+function twitchpp {
+	echo "Building Twitch++"
+	cd ~/Desktop/Tweaks
+	mkdir -p Build
+	cd Build
+	echo "Extracting IPA"
+	unzip ../Twitch.ipa -d Twitch > /dev/null
+	cd "Twitch/Payload/Twitch.app";
+	echo "Downloading Tweak"
+	curl -O "https://raw.githubusercontent.com/SarahH12099/Auto-IPA-Builder-Tweaks/master/twitchpp.zip"
+	echo "Extracting Tweak"
+	unzip twitchpp.zip > /dev/null
+	rm -r -f twitchpp.zip
+	echo "Injecting Tweak"
+	install_name_tool -change /usr/lib/libSystem.B.dylib @executable_path/Sys.dylib "Twitch" > /dev/null
+	echo "Packaging IPA"
+	cd ../../
+	zip -r -X ../"Twitch++.ipa" * > /dev/null
+	cd ../; rm -r -f Twitch
+	echo "Done Twitch++"
+}
+
 
 "$1" "${@:2}"
