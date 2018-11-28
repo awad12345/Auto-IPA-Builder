@@ -22,7 +22,7 @@ USAGE
 
 [[ $# = 0 ]] && usage
 
-commands=(deblist ipalist optionslist cercube4 cercube4pp plexpp spotifypp twitchpp)
+commands=(deblist ipalist optionslist cercube4 cercube4pp mediaboxhdpp plexpp spotifypp twitchpp)
 [[ ! " ${commands[@]} " =~ " $1 " ]] && usage
 
 function deblist {
@@ -34,6 +34,7 @@ function deblist {
 function ipalist {
 	echo "IPAs must be in a folder called Tweaks on your Desktop"
 	echo "IPAs:
+      MediaBoxHD.ipa
       Plex.ipa
       Spotify.ipa
       Twitch.ipa
@@ -44,6 +45,7 @@ function optionslist {
 	echo "Options:
       cercube4 - Builds Cercube 4
       cercube4pp - Builds Cercube 4++
+      mediaboxhdpp -  Builds MediaBox HD++
       plexpp - Builds Plex++
       spotifypp - Builds Spotify++
       twitchpp - Builds Twitch++"
@@ -95,6 +97,28 @@ function cercube4pp {
 	zip -r -X ../"Cercube 4 For YouTube++.ipa" * > /dev/null
 	cd ../; rm -r -f YouTube
 	echo "Done Cercube 4++"
+}
+
+function mediaboxhdpp {
+	echo "Building MediaBox HD++"
+	cd ~/Desktop/Tweaks
+	mkdir -p Build
+	cd Build
+	echo "Extracting IPA"
+	unzip ../MediaBoxHD.ipa -d MediaBoxHD > /dev/null
+	cd "MediaBoxHD/Payload/MediaBox HD.app";
+	echo "Downloading Tweak"
+	curl -O "https://raw.githubusercontent.com/SarahH12099/Auto-IPA-Builder-Tweaks/master/mediaboxhdpp.zip"
+	echo "Extracting Tweak"
+	unzip mediaboxhdpp.zip > /dev/null
+	rm -r -f mediaboxhdpp.zip
+	echo "Injecting Tweak"
+	optool install -c load -p "@executable_path/MediaBoxHDCrack.dylib" -t "MediaBox HD" > /dev/null
+	echo "Packaging IPA"
+	cd ../../
+	zip -r -X ../"MediaBox HD++.ipa" * > /dev/null
+	cd ../; rm -r -f MediaBoxHD
+	echo "Done MediaBox HD++"
 }
 
 function plexpp {
